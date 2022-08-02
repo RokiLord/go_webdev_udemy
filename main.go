@@ -27,9 +27,4 @@ func main() {
 		Motto: "The belief of no beliefs",
 	}
 
-	g := sage{
-		Name:  "Gandhi",
-		Motto: "Be the change",
-	}
-
 }
