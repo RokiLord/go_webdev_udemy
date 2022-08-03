@@ -6,9 +6,18 @@
 </head>
 <body>
 
-    {{range $key, $element:=.}}
-    <li>{{$key}} - {{$element}}</li>
-    {{end}}
+    {{range .}}
 
+    {{.Fall.Term}}
+        {{range .Fall.Courses}}
+            {{.}}
+        {{end}}
+    
+    
+    {{.Spring.Term}}
+        {{range .Spring.Courses}}
+            {{.}}
+        {{end}}
+    {{end}}
 </body>
 </html>
