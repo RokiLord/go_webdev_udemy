@@ -6,16 +6,39 @@ import (
 	"os"
 )
 
+type person struct {
+	Name string
+	Age  int
+}
+
+func (p person) SomeProcessing() int {
+	return 7
+}
+
+func (p person) GetName() string {
+	return p.Name
+}
+
+func (p person) GetAge() int {
+	return p.Age
+}
+
+func (p person) SumAge(extra int) int {
+	return p.Age + extra
+}
+
 var tpl *template.Template
 
 func init() {
-	tpl = template.Must(template.ParseGlob("templates/*.gohtml"))
+	tpl = template.Must(template.ParseFiles("templates/tpl.gohtml"))
 }
-
 func main() {
-	err := tpl.ExecuteTemplate(os.Stdout, "index.gohtml", 42)
-
+	p := person{
+		Name: "terry",
+		Age:  25,
+	}
+	err := tpl.Execute(os.Stdout, p)
 	if err != nil {
-		log.Fatalln(err)
+		log.Panic(err)
 	}
 }
