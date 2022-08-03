@@ -2,29 +2,20 @@ package main
 
 import (
 	"html/template"
-	"strings"
+	"log"
+	"os"
 )
 
-var fm = template.FuncMap{
-	"uc": strings.ToUpper,
-	"ft": firstThree,
-}
+var tpl *template.Template
 
 func init() {
-	tpl = template.Must(template.New("").Funcs(fm).ParseFiles("tpl.gohtml"))
-}
-
-func firstThree(s string) string {
-	s = strings.TrimSpace(s)
-	s = s[:3]
-	return s
+	tpl = template.Must(template.ParseGlob("templates/*.gohtml"))
 }
 
 func main() {
+	err := tpl.ExecuteTemplate(os.Stdout, "index.gohtml", 42)
 
-	b := sage{
-		Name:  "Buddha",
-		Motto: "The belief of no beliefs",
+	if err != nil {
+		log.Fatalln(err)
 	}
-
 }
